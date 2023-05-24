@@ -2,20 +2,20 @@ window.application = {
     blocks: {},
     screens: {},
     renderScreen: function (screenName) {
+        if (!(screenName in this.screens)) {
+            alert("Такого Скрина нет!");
+            return;
+        }
         this.timers.forEach(timer => {
             clearInterval(timer);
             this.timers.pop();
         });
-        if (!(screenName in this.screens)) {
-            alert("Такова Скрина нет!");
-            return;
-        }
         this.screens[screenName]();
 
     },
     renderBlock: function (blockName, container) {
         if (!(blockName in this.blocks)) {
-            alert("Такова блока нет");
+            alert("Такого блока нет");
             return;
         }
         this.blocks[blockName](container);
