@@ -28,10 +28,13 @@ function renderLoginBlock(container) {
                 if (statusResponse.status !== "ok") {
                     return;
                 }
-                if (statusResponse["player-status"].status !== "lobby") {
-                    return; //TODO: Добавить проверку что игрок уже в Игре
+                if (statusResponse["player-status"].status === "lobby") {
+                    window.application.renderScreen("lobbyScreen");
                 }
-                window.application.renderScreen("lobbyScreen");
+                if (statusResponse["player-status"].status === "game") {
+                    window.application.matchId = statusResponse["player-status"].game.id;
+                    window.application.renderScreen("gameMoveScreen");
+                }
             });
         });
     };
@@ -85,7 +88,7 @@ function renderPlayButtonBlock(container) {
 
     playButton.addEventListener("click", (e) => {
         e.preventDefault();
-        request("/start", {token: window.application.token}, playerStatus => {
+        request("/start", {token: window.application.token}, playerStatus => { // TODO: Why is it "PlayerStatus" variable???????
             window.application.matchId = playerStatus["player-status"].game.id;
         });
         window.application.renderScreen("waitingScreen");
@@ -163,6 +166,10 @@ let gameBlockElementConstructor = [
 ];
 
 function renderGameMoveBlock(container) {
+    let gameEnemy = request("/game-status", {
+        token: window.application.token,
+        id: window.application.matchId
+    }, gameStatus => gameStatus["game-status"].enemy.login); //TODO: display enemyName in span
     const moveBlock = document.querySelector(".moveBlock");
     gameBlockElementConstructor.forEach(element => {
         let e = document.createElement(element.elementName);
@@ -222,7 +229,6 @@ function renderWaitingEnemyMoveBlock(container) {
         token: window.application.token,
         id: window.application.matchId
     }, response => {
-        console.log(response);
         if (response["game-status"].status === "lose") {
             window.application.renderScreen("loseScreen");
         }
