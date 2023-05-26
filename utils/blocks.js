@@ -88,8 +88,8 @@ function renderPlayButtonBlock(container) {
 
     playButton.addEventListener("click", (e) => {
         e.preventDefault();
-        request("/start", {token: window.application.token}, playerStatus => { // TODO: Why is it "PlayerStatus" variable???????
-            window.application.matchId = playerStatus["player-status"].game.id;
+        request("/start", {token: window.application.token}, gameStart => {
+            window.application.matchId = gameStart["player-status"].game.id;
         });
         window.application.renderScreen("waitingScreen");
     });
@@ -127,7 +127,7 @@ function renderWaitingBlock(container) {
     window.application.timers.push(requestGameStatus);
 }
 
-let gameBlockElementConstructor = [
+let gameBlockButtonConstructor = [
     {
         className: "gameButtons",
         elementName: "button",
@@ -148,41 +148,28 @@ let gameBlockElementConstructor = [
         id: "paperButton",
         textContent: "",
         value: "paper"
-    },
-    {
-        className: "moveText",
-        elementName: "span",
-        id: "",
-        textContent: "Сделайте Ваш ход",
-        value: ""
-    },
-    {
-        className: "gameEnemy",
-        elementName: "span",
-        id: "",
-        textContent: "Ваш противник: ",
-        value: ""
-    },
+    }
 ];
 
-function renderGameMoveBlock(container) {
-    let gameEnemy = request("/game-status", {
-        token: window.application.token,
-        id: window.application.matchId
-    }, gameStatus => gameStatus["game-status"].enemy.login); //TODO: display enemyName in span
+function renderGameMoveBlock(container) {  //TODO: display enemyName in span
     const moveBlock = document.querySelector(".moveBlock");
-    gameBlockElementConstructor.forEach(element => {
-        let e = document.createElement(element.elementName);
-        e.className = element.className;
-        e.textContent = element.textContent;
-        e.value = element.value;
-        e.id = element.id;
-        if (element.elementName === "span") {
-            container.prepend(e);
-        }
-        if (element.elementName === "button") {
-            moveBlock.appendChild(e);
-        }
+    const enemyName = document.createElement("span");
+    const moveBlockText = document.createElement("span");
+
+    enemyName.className = "gameEnemy";
+    enemyName.textContent = "Ваш противник: ";
+    moveBlockText.className = "moveText";
+    moveBlockText.textContent = "Сделайте Ваш ход";
+    container.prepend(moveBlockText);
+    container.prepend(enemyName);
+
+    gameBlockButtonConstructor.forEach(button => {
+        let documentElement = document.createElement(button.elementName);
+        documentElement.className = button.className;
+        documentElement.textContent = button.textContent;
+        documentElement.value = button.value;
+        documentElement.id = button.id;
+        moveBlock.appendChild(documentElement);
     });
     const gameButtons = document.querySelectorAll(".gameButtons");
     gameButtons.forEach(button => {

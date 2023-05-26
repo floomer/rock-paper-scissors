@@ -9,7 +9,6 @@ function request(endpoint, params, callback) {
     xhr.onload = () => {
         if (xhr.status === 200) {
             callback(xhr.response);
-            // console.log(backendUrl + endpoint + "?" + queryString);
         }
     };
 }
