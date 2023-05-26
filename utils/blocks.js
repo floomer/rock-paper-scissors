@@ -24,7 +24,6 @@ function renderLoginBlock(container) {
             }
             window.application.token = tokenResponse.token;
             request("/player-status", {token: tokenResponse.token}, statusResponse => {
-                console.log(statusResponse);
                 if (statusResponse.status !== "ok") {
                     return;
                 }
@@ -127,7 +126,7 @@ function renderWaitingBlock(container) {
     window.application.timers.push(requestGameStatus);
 }
 
-let gameBlockButtonConstructor = [
+const gameBlockButtonArray = [
     {
         className: "gameButtons",
         elementName: "button",
@@ -151,20 +150,25 @@ let gameBlockButtonConstructor = [
     }
 ];
 
-function renderGameMoveBlock(container) {  //TODO: display enemyName in span
+function renderGameMoveBlock(container) {
     const moveBlock = document.querySelector(".moveBlock");
     const enemyName = document.createElement("span");
+    request("/game-status", {
+        token: window.application.token,
+        id: window.application.matchId
+    }, response => {
+        const name = response["game-status"].enemy.login;
+        enemyName.className = "gameEnemy";
+        enemyName.textContent = "Ваш противник: " + name;
+        container.prepend(enemyName);
+    });
     const moveBlockText = document.createElement("span");
-
-    enemyName.className = "gameEnemy";
-    enemyName.textContent = "Ваш противник: ";
     moveBlockText.className = "moveText";
     moveBlockText.textContent = "Сделайте Ваш ход";
     container.prepend(moveBlockText);
-    container.prepend(enemyName);
 
-    gameBlockButtonConstructor.forEach(button => {
-        let documentElement = document.createElement(button.elementName);
+    gameBlockButtonArray.forEach(button => {
+        const documentElement = document.createElement(button.elementName);
         documentElement.className = button.className;
         documentElement.textContent = button.textContent;
         documentElement.value = button.value;
@@ -181,7 +185,6 @@ function renderGameMoveBlock(container) {  //TODO: display enemyName in span
                 id: window.application.matchId,
                 move: playerChoice
             }, response => {
-                console.log(response);
                 switch (response["game-status"].status) {
                     case "waiting-for-enemy-move":
                         window.application.renderScreen("waitingEnemyMoveScreen");
