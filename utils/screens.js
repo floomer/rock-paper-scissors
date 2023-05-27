@@ -14,14 +14,17 @@ function renderLobbyScreen() {
 
     const lobbyForm = document.createElement("form");
     const playersBlock = document.createElement("div");
+    const startGameBlock = document.createElement("div");
     lobbyForm.className = "lobbyForm";
     playersBlock.className = "playersBlock";
+    startGameBlock.className = "lobbyForm__buttonBlock";
 
     app.appendChild(lobbyForm);
     lobbyForm.appendChild(playersBlock);
+    lobbyForm.appendChild(startGameBlock);
 
     window.application.renderBlock("lobbyBlock", playersBlock);
-    window.application.renderBlock("playButtonBlock", lobbyForm);
+    window.application.renderBlock("playButtonBlock", startGameBlock);
 }
 
 function renderWaitingScreen() {

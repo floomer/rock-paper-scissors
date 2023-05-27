@@ -20,5 +20,6 @@ window.application = {
         }
         this.blocks[blockName](container);
     },
-    timers: []
+    timers: [],
+    isLoading: false
 };

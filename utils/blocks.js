@@ -16,7 +16,8 @@ function renderLoginBlock(container) {
 
     container.onsubmit = (e) => {
         e.preventDefault();
-        let userLogin = inputField.value;
+        window.application.isLoading = true;
+        const userLogin = inputField.value;
         request("/login", {login: userLogin}, tokenResponse => {
             if (tokenResponse.status !== "ok") {
                 alert("Something went wrong!");
@@ -35,6 +36,7 @@ function renderLoginBlock(container) {
                     window.application.renderScreen("gameMoveScreen");
                 }
             });
+            console.log(window.application.isLoading);
         });
     };
 }
@@ -235,43 +237,52 @@ function renderWaitingEnemyMoveBlock(container) {
 function renderWinBlock(container) {
     const winText = document.createElement("span");
     const returnButtonsBlock = document.createElement("div");
+    const startGameBlock = document.createElement("div");
 
+    startGameBlock.className = "startNewGame";
     returnButtonsBlock.className = "returnButtonsBlock";
     winText.className = "winBlock-text";
     winText.textContent = "Мои поздравления, Вы выиграли!";
 
     container.appendChild(winText);
     container.appendChild(returnButtonsBlock);
+    returnButtonsBlock.appendChild(startGameBlock);
 
     window.application.renderBlock("returnToLobbyBlock", returnButtonsBlock);
-    window.application.renderBlock("playButtonBlock", returnButtonsBlock);
+    window.application.renderBlock("playButtonBlock", startGameBlock);
 }
 
 function renderLoseBlock(container) {
     const loseText = document.createElement("span");
     const returnButtonsBlock = document.createElement("div");
+    const startGameBlock = document.createElement("div");
 
+    startGameBlock.className = "startNewGame";
     returnButtonsBlock.className = "returnButtonsBlock";
     loseText.className = "loseBlock-text";
     loseText.textContent = "К сожалению, Вы проиграли...";
 
     container.appendChild(loseText);
     container.appendChild(returnButtonsBlock);
+    returnButtonsBlock.appendChild(startGameBlock);
 
     window.application.renderBlock("returnToLobbyBlock", returnButtonsBlock);
-    window.application.renderBlock("playButtonBlock", returnButtonsBlock);
+    window.application.renderBlock("playButtonBlock", startGameBlock);
 }
 
 function renderReturnToLobbyBlock(container) {
+    const returnToLobbyBlock = document.createElement("div");
     const returnToLobby = document.createElement("button");
     const returnToLobbyText = document.createElement("span");
 
+    returnToLobbyBlock.className = "returnLobby";
     returnToLobbyText.className = "returnToLobbyText";
     returnToLobbyText.textContent = "Вернуться в лобби";
     returnToLobby.className = "returnLobbyButton";
 
-    container.appendChild(returnToLobbyText);
-    container.appendChild(returnToLobby);
+    container.appendChild(returnToLobbyBlock);
+    returnToLobbyBlock.appendChild(returnToLobbyText);
+    returnToLobbyBlock.appendChild(returnToLobby);
 
     returnToLobby.onclick = (e) => {
         e.preventDefault();

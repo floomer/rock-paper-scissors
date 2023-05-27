@@ -24,9 +24,6 @@ button:hover {
 }
 
 .welcomeText {
-    position: absolute;
-    top: 20px;
-    left: 20px;
     font-size: 26px;
     color: rgb(232, 230, 227);
 }
@@ -48,9 +45,10 @@ button:hover {
 }
 
 .lobbyForm {
+    display: flex;
     position: relative;
     width: 530px;
-    height: 410px;
+    height: 310px;
     background-color: #222426;
     border-radius: 10px;
     font-size: 18px;
@@ -59,7 +57,7 @@ button:hover {
 
 .playersBlock {
     width: 200px;
-    height: 410px;
+    height: 310px;
     background-color: rgba(255, 216, 249, 0.45);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -85,10 +83,16 @@ li {
     margin-top: 5px;
 }
 
+.lobbyForm__buttonBlock {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    height: 310px;
+    width: 330px;
+}
+
 .submitPlay {
-    position: absolute;
-    top: 140px;
-    left: 312px;
+    margin-top: 70px;
     width: 100px;
     height: 100px;
     border-radius: 212px;
@@ -98,16 +102,17 @@ li {
 
 .startGameText {
     display: block;
-    position: absolute;
-    top: 23px;
-    left: 295px;
+    margin-top: 20px;
     width: 150px;
-    height: 20px;
+    height: 35px;
     color: rgb(232, 230, 227);
     font-size: 28px;
 }
 
 .waitingBlock {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
     position: relative;
     width: 460px;
     height: 385px;
@@ -118,19 +123,14 @@ li {
 }
 
 .waitingBlockText {
-    display: block;
-    position: absolute;
-    top: 33px;
-    left: 96px;
+    margin-top: 20px;
     font-size: 28px;
     color: rgb(232, 230, 227);
 }
 
 .animated-ring {
     display: inline-block;
-    position: absolute;
-    top: 159px;
-    left: 181px;
+    margin-top: 80px;
     width: 80px;
     height: 80px;
 }
@@ -157,6 +157,10 @@ li {
 }
 
 .moveForm {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
     position: relative;
     width: 550px;
     height: 410px;
@@ -167,33 +171,23 @@ li {
 }
 
 .moveText {
-    display: block;
-    position: absolute;
     font-size: 28px;
     color: rgb(232, 230, 227);
-    top: 37px;
-    left: 150px;
 }
 
 .gameEnemy {
     display: block;
-    position: absolute;
     font-size: 20px;
     color: rgb(232, 230, 227);
-    top: 138px;
-    left: 19px;
 }
 
 .moveBlock {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    position: absolute;
     width: 449px;
     height: 100px;
     background-color: white;
-    top: 281px;
-    left: 48px;
     border-radius: 10px;
     background-color: rgba(255, 216, 249, 0.45);
 }
@@ -228,6 +222,9 @@ li {
 }
 
 .waitingEnemyBlock {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
     position: relative;
     width: 460px;
     height: 385px;
@@ -239,14 +236,15 @@ li {
 
 .waitingBlock-text {
     display: block;
-    position: absolute;
-    top: 33px;
-    left: 103px;
+    margin-top: 20px;
     font-size: 28px;
     color: rgb(232, 230, 227);
 }
 
 .winBlock {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
     position: relative;
     width: 483px;
     height: 285px;
@@ -254,13 +252,11 @@ li {
     border-radius: 10px;
     font-size: 18px;
     margin: 200px auto;
+    padding: 20px;
 }
 
 .winBlock-text {
-    display: block;
-    position: absolute;
-    top: 33px;
-    left: 47px;
+    margin-top: 20px;
     font-size: 28px;
     color: rgb(232, 230, 227);
 }
@@ -273,29 +269,55 @@ li {
     border-radius: 10px;
     font-size: 18px;
     margin: 200px auto;
+    padding: 20px;
 }
 
 .loseBlock-text {
     display: block;
-    position: absolute;
-    top: 33px;
-    left: 38px;
+    margin-top: 20px;
     font-size: 28px;
     color: rgb(232, 230, 227);
+    text-align: center;
 }
 
 .returnButtonsBlock {
-    position: relative;
+    margin-top: 50px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
     width: 480px;
-    height: 100px;
-    padding-top: 140px;
+    height: 200px;
+}
+
+.returnLobby {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 200px;
+    height: 200px;
+}
+
+.returnLobby button {
+    margin-top: 10px;
+}
+
+.startNewGame {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 200px;
+    height: 200px;
+}
+
+.startNewGame button, span {
+    margin-top: 10px !important;
 }
 
 .returnLobbyButton {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    left: 10px;
+    width: 100px;
+    height: 100px;
     background-image: url("./images/exit.png");
     background-repeat: no-repeat;
     background-size: 80% 80%;
@@ -304,36 +326,9 @@ li {
 }
 
 .returnToLobbyText {
-    position: absolute;
-    top: 154px;
-    left: 36px;
-    width: 195px;
-    height: 20px;
+    display: block;
+    width: 200px;
+    height: 30px;
     color: rgb(232, 230, 227);
-    font-size: 24px;
-}
-
-.returnButtonsBlock :nth-child(2) {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    top: 188px;
-    left: 60px;
-}
-
-.returnButtonsBlock :nth-child(4) {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    top: 188px;
-    left: 353px;
-}
-
-.returnButtonsBlock :nth-child(3) {
-    width: 130px;
-    height: 20px;
-    position: absolute;
-    top: 154px;
-    left: 330px;
     font-size: 24px;
 }
