@@ -17,6 +17,7 @@ function renderLoginBlock(container) {
     container.onsubmit = (e) => {
         e.preventDefault();
         window.application.isLoading = true;
+        window.application.renderScreen("blurScreen");
         const userLogin = inputField.value;
         request("/login", {login: userLogin}, tokenResponse => {
             if (tokenResponse.status !== "ok") {
@@ -36,7 +37,6 @@ function renderLoginBlock(container) {
                     window.application.renderScreen("gameMoveScreen");
                 }
             });
-            console.log(window.application.isLoading);
         });
     };
 }
@@ -89,6 +89,8 @@ function renderPlayButtonBlock(container) {
 
     playButton.addEventListener("click", (e) => {
         e.preventDefault();
+        window.application.isLoading = true;
+        window.application.renderScreen("blurScreen");
         request("/start", {token: window.application.token}, gameStart => {
             window.application.matchId = gameStart["player-status"].game.id;
         });
@@ -181,6 +183,8 @@ function renderGameMoveBlock(container) {
     gameButtons.forEach(button => {
         button.onclick = (e) => {
             e.preventDefault();
+            window.application.isLoading = true;
+            window.application.renderScreen("blurScreen");
             let playerChoice = button.value;
             request("/play", {
                 token: window.application.token,
@@ -286,6 +290,8 @@ function renderReturnToLobbyBlock(container) {
 
     returnToLobby.onclick = (e) => {
         e.preventDefault();
+        window.application.isLoading = true;
+        window.application.renderScreen("blurScreen");
         window.application.renderScreen("lobbyScreen");
     };
 }

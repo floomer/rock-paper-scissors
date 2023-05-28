@@ -6,6 +6,15 @@ button:hover {
     cursor: pointer;
 }
 
+.loadingText {
+    position: absolute;
+    left: 577px;
+    top: 336px;
+    z-index: 1;
+    display: none;
+    color: red;
+}
+
 .loginForm {
     position: relative;
     display: flex;
